@@ -29,6 +29,9 @@ fi
 # Begin script in case all parameters are correct
 # ======================================================
 echo "workspace $workspace"
+mkdir -p $workspace
+
+start_time=`date +%s`
 
 colmap feature_extractor \
    --database_path $workspace/database.db \
@@ -61,7 +64,7 @@ colmap image_undistorter \
 colmap patch_match_stereo \
     --workspace_path $workspace/dense \
     --workspace_format COLMAP \
-    --PatchMatchStereo.geom_consistency false \
+    --PatchMatchStereo.geom_consistency true \
     --PatchMatchStereo.num_iterations 2 \
     --PatchMatchStereo.window_radius 2 \
     --PatchMatchStereo.window_step 2 \
@@ -80,3 +83,12 @@ colmap poisson_mesher \
 colmap delaunay_mesher \
     --input_path $workspace/dense \
     --output_path $workspace/dense/meshed-delaunay.pl
+
+#end_time=`date +%s.%N`
+end_time=`date +%s`
+runtime="$(($end_time-$start_time))"
+
+echo ""
+echo "end-to-end time: $runtime seconds"
+echo ""
+
