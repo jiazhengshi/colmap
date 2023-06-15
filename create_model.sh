@@ -82,7 +82,7 @@ colmap poisson_mesher \
 
 colmap delaunay_mesher \
     --input_path $workspace/dense \
-    --output_path $workspace/dense/meshed-delaunay.pl
+    --output_path $workspace/dense/meshed-delaunay.ply
 
 #end_time=`date +%s.%N`
 end_time=`date +%s`
